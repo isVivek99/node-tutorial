@@ -1,29 +1,16 @@
-const { readFile } = require("fs");
-const util = require("util");
+var http = require("http");
+var { readFileSync, createReadStream } = require("fs");
 
-const getText = (path) => {
-  return new Promise((resolve, reject) => {
-    readFile(path, "utf8", (err, data) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(data);
-      }
-    });
+const server = http.createServer((req, res) => {
+  // const text = readFileSync("./content/big.txt", "utf-8");
+  // res.end(text);
+  const fileStream = createReadStream("./content/big.txt", "utf-8");
+  fileStream.on("open", () => {
+    fileStream.pipe(res);
   });
-};
+  fileStream.on("error", (err) => {
+    res.end(err);
+  });
+});
 
-// getText('./content/first.txt')
-// .then((result) => console.log(result))
-// .catch((err) => console.log(err))
-
-const start = async () => {
-  try {
-    const first = await getText("./content/first.txt");
-    const second = await getText("./content/second.txt");
-    console.log(`${first},  ${second}`);
-  } catch (err) {
-    console.log(err);
-  }
-};
-start();
+server.listen(5001);
