@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "express": "^4.17.1",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
@@ -9,8 +10,8 @@
   "version": "1.0.0",
   "main": "1-intro.js",
   "scripts": {
-    "start":"node app.js",
-    "dev":"nodemon app.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "repository": {
     "type": "git",
