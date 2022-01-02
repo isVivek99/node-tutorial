@@ -1,10 +1,11 @@
 const Product = require("../models/product");
 
 const getAllProductsStatic = async (req, res) => {
-  const products = await Product.find({})
+  //$gt:greater-than
+  const products = await Product.find({ price: { $gt: 30 } })
     .sort("name")
-    .select("name price")
-    .skip(5);
+    .select("name price");
+
   res.status(200).json({ products, nbHits: products.length });
 };
 const getAllProducts = async (req, res) => {
